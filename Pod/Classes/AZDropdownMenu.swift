@@ -26,11 +26,19 @@ public class AZDropdownMenu: UIView {
     public var cellTapHandler : ((indexPath:NSIndexPath) -> Void)?
     
     // MARK: - Configuration options
+    
+    /// Top offset of menu
+    public var menuTopOffset : CGFloat = 0.0 {
+        didSet {
+            self.menuConfig?.menuTopOffset = menuTopOffset
+            self.menuView.frame = CGRectMake(0, menuTopOffset, frame.size.width, menuHeight)
+        }
+    }
 
     /// Row height of the menu item
     public var itemHeight : Int = 44 {
         didSet {
-            let menuFrame = CGRectMake(0, 0, frame.size.width, menuHeight)
+            let menuFrame = CGRectMake(0, menuTopOffset, frame.size.width, menuHeight)
             self.menuView.frame = menuFrame
         }
     }
@@ -359,6 +367,7 @@ struct AZDropdownMenuConfig {
     var menuSeparatorStyle : AZDropdownMenuSeperatorStyle = .Singleline
     var menuSeparatorColor : UIColor = UIColor.lightGrayColor()
     var itemImagePosition : AZDropdownMenuItemImagePosition = .Prefix
+    var menuTopOffset: CGFloat = 0.0
 }
 
 
