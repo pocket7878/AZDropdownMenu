@@ -140,6 +140,7 @@ public final class AZDropdownMenuDefaultCell: AZDropdownMenuBaseCell {
         self.backgroundColor = config.itemColor
         self.titleLabel.textColor = config.itemFontColor
         self.titleLabel.font = UIFont(name: config.itemFont, size: config.itemFontSize)
+        self.iconView.tintColor = config.itemImageTintColor
 
         switch config.itemAlignment {
         case .Left:

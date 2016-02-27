@@ -131,6 +131,13 @@ public class AZDropdownMenu: UIView {
         }
     }
     
+    /// The image tintColor. Image will displayed in tintColor if drawed as a template image
+    public var itemImageTintColor : UIColor = UIColor.blackColor() {
+        didSet {
+            self.menuConfig?.itemImageTintColor = itemImageTintColor
+        }
+    }
+    
     private var calcMenuHeight : CGFloat {
         get {
             return CGFloat(itemHeight * itemDataSource.count)
@@ -359,6 +366,7 @@ struct AZDropdownMenuConfig {
     var menuSeparatorStyle : AZDropdownMenuSeperatorStyle = .Singleline
     var menuSeparatorColor : UIColor = UIColor.lightGrayColor()
     var itemImagePosition : AZDropdownMenuItemImagePosition = .Prefix
+    var itemImageTintColor : UIColor = UIColor.blackColor()
 }
 
 
