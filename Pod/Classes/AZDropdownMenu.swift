@@ -8,6 +8,14 @@
 
 import UIKit
 
+@objc public protocol AZDropdownMenuDelegate {
+    func onOpenAZDropdownMenu(menu: AZDropdownMenu)
+    optional func onOpenAZDropdownMenuFinished(menu: AZDropdownMenu)
+    
+    func onCloseAZDropdownMenu(menu: AZDropdownMenu)
+    optional func onCloseAZDropdownMenuFinished(menu: AZDropdownMenu)
+}
+
 public class AZDropdownMenu: UIView {
     
     private let DROPDOWN_MENU_CELL_KEY : String = "MenuItemCell"
@@ -26,6 +34,8 @@ public class AZDropdownMenu: UIView {
     public var cellTapHandler : ((indexPath:NSIndexPath) -> Void)?
     
     // MARK: - Configuration options
+    /// Delegate of menu open & close
+    public var delegate: AZDropdownMenuDelegate?
     
     /// Top offset of menu
     public var menuTopOffset : CGFloat = 0.0 {
@@ -273,6 +283,7 @@ public class AZDropdownMenu: UIView {
         
         animateOvelay(overlayAlpha, interval: 0.4, completionHandler: nil)
         menuView.reloadData()
+        self.delegate?.onOpenAZDropdownMenu(self)
         UIView.animateWithDuration(
             0.2,
             delay:0,
@@ -283,6 +294,7 @@ public class AZDropdownMenu: UIView {
                 self.frame.origin.y = view.frame.origin.y
                 } , completion:{ (finished : Bool) -> Void in
 
+                    self.delegate?.onOpenAZDropdownMenuFinished?(self)
             }
         )
     }
@@ -291,6 +303,7 @@ public class AZDropdownMenu: UIView {
 
         animateOvelay(0.0, interval: 0.1, completionHandler: nil)
 
+        self.delegate?.onCloseAZDropdownMenu(self)
         UIView.animateWithDuration(
             0.3, delay: 0.1,
             options: [],
@@ -299,6 +312,7 @@ public class AZDropdownMenu: UIView {
             },
             completion: { (finished: Bool) -> Void in
                 self.removeFromSuperview()
+                self.delegate?.onCloseAZDropdownMenuFinished?(self)
             }
         )
     }

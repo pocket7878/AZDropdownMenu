@@ -69,7 +69,7 @@ class ViewController: UIViewController {
     
 }
 
-class DemoViewController1 : UIViewController {
+class DemoViewController1 : UIViewController, AZDropdownMenuDelegate  {
     
     var rightMenu: AZDropdownMenu?
     
@@ -86,6 +86,7 @@ class DemoViewController1 : UIViewController {
         
         title = "Demo 1"
         rightMenu = buildDummyDefaultMenu()
+        rightMenu?.delegate = self
     }
     
     func showRightDropdown() {
@@ -95,6 +96,16 @@ class DemoViewController1 : UIViewController {
             self.rightMenu?.showMenuFromView(self.view)
         }
     }
+    
+    ///MARK: AZDropdownMenuDelegate
+    func onOpenAZDropdownMenu(menu: AZDropdownMenu) {
+        print("Open dropdown menu")
+    }
+    
+    func onCloseAZDropdownMenu(menu: AZDropdownMenu) {
+        print("Close dropdown menu")
+    }
+    
 }
 
 class DemoViewController2 : UIViewController {
